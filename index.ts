@@ -3,9 +3,11 @@ import type { IChatMessage } from "./interfaces/IChatMessage";
 import { cerebrasService } from "./services/cerebras";
 import { groqService } from "./services/groq";
 import { openRouterService } from "./services/openRouter";
+import { geminiService } from "./services/gemini3";
 
 
 const services: IAiService[] = [
+    // geminiService,
     openRouterService,
     groqService,
     cerebrasService,

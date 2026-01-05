@@ -23,10 +23,6 @@ export const openRouterService: IAiService = {
         return (async function* () {
             for await (const chunk of stream) {
                 yield chunk.choices[0]?.delta?.content || '';
-
-                if (chunk.usage) {
-                    console.log("\nReasoning tokens:", (chunk.usage as any).reasoningTokens);
-                }
             }
         })();
 
