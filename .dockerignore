@@ -1,0 +1,10 @@
+node_modules
+bun.lockb
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md
+implementation_plan.md
+task.md
+walkthrough.md
