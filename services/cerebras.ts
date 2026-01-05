@@ -2,7 +2,7 @@ import Cerebras from '@cerebras/cerebras_cloud_sdk';
 import type { IAiService } from '../interfaces/IAiService';
 import type { IChatMessage } from '../interfaces/IChatMessage';
 
-const cerebras = new Cerebras();
+const cerebras = new Cerebras({ apiKey: process.env.CEREBRAS_API_KEY });
 
 export const cerebrasService: IAiService = {
     name: 'cerebras',
