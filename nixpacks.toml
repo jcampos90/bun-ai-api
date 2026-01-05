@@ -1,0 +1,22 @@
+# The setup phase defines the environment and packages needed for the build.
+[phases.setup]
+# nixPkgs specifies the list of Nix packages to install. 
+# "..." tells Nixpacks to include the default packages it would normally detect.
+# "bun" explicitly adds the Bun runtime to the environment.
+nixPkgs = ["...", "bun"]
+
+# The install phase is used to fetch and set up project dependencies.
+[phases.install]
+# cmds executes shell commands. Here we use 'bun install' with '--frozen-lockfile'
+# to ensure that the exact versions from bun.lock are installed.
+cmds = ["bun install --frozen-lockfile"]
+
+# The build phase is for compiling or preparing the application.
+[phases.build]
+# Since Bun can run TypeScript files directly, we don't need a formal build step.
+cmds = ["echo 'No build step required'"]
+
+# The start section defines the command that runs when the container starts.
+[start]
+# This command starts the AI API server using Bun.
+cmd = "bun run start"

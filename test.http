@@ -1,0 +1,12 @@
+POST http://localhost:3000/chat
+Content-Type: application/json
+X-API-KEY: uhBdhaU89dHYqu9TXR96rZ0Rci10owC4DlOk5qf1wDjGaHQbtL6eFmiYTylDooCz
+
+{
+    "messages": [
+        {
+            "role": "user",
+            "content": "Resuelve Fibonacci en javascript"
+        }
+    ]
+}

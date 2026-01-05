@@ -1,7 +1,48 @@
+import type { IAiService } from "./interfaces/IAiService";
+import type { IChatMessage } from "./interfaces/IChatMessage";
+import { cerebrasService } from "./services/cerebras";
+import { groqService } from "./services/groq";
+import { openRouterService } from "./services/openRouter";
+
+
+const services: IAiService[] = [
+    openRouterService,
+    groqService,
+    cerebrasService,
+];
+
+let currentServiceIndex = 0;
+
+function getNextService() {
+    const service = services[currentServiceIndex];
+    currentServiceIndex = (currentServiceIndex + 1) % services.length;
+    return service;
+}
+
 const server = Bun.serve({
     port: process.env.PORT ?? 3000,
     async fetch(req) {
-        return new Response("AI API is running!");
+
+        if (req.headers.get('x-api-key') !== process.env.API_KEY) {
+            return new Response('Unauthorized', { status: 401 });
+        }
+
+        const { pathname } = new URL(req.url);
+        if (req.method === 'POST' && pathname === '/chat') {
+            const { messages } = await req.json() as { messages: IChatMessage[] };
+
+            const service = getNextService();
+            console.log(`Using service: ${service?.name}`);
+            const response = await service?.chat(messages);
+            return new Response(response, {
+                headers: {
+                    'Content-Type': 'text/event-stream',
+                    'Cache-Control': 'no-cache',
+                    'Connection': 'keep-alive'
+                }
+            });
+        }
+        return new Response('Not Found', { status: 404 });
     },
 });
 
