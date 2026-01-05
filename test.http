@@ -1,7 +1,6 @@
-#POST http://192.168.0.186:3015/chat
-POST http://localhost:3000/chat
+POST {{baseUrl}}/chat
 Content-Type: application/json
-X-API-KEY: uhBdhaU89dHYqu9TXR96rZ0Rci10owC4DlOk5qf1wDjGaHQbtL6eFmiYTylDooCz
+X-API-KEY: {{apiKey}}
 
 {
     "messages": [
